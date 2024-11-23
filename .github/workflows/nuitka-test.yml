@@ -1,0 +1,27 @@
+name: nuitka 测试
+run-name: nuitka 测试
+on:
+  workflow_dispatch:
+jobs:
+  Build:
+    runs-on: windows-latest
+    permissions: write-all
+    steps:
+    - name: 仓库检出
+      uses: actions/checkout@v4
+    - name: 设置 Python 3.8
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.8"
+    - name: 安装依赖
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt -U nuitka zstandard ordered-set
+    - name: 编译
+      run:
+        cd app && python -m nuitka --mingw64 --assume-yes-for-downloads --standalone --remove-output --windows-console-mode="disable" --jobs=8 --enable-plugins="pyqt5" --output-dir="dist" --main="Groove.py" --windows-icon-from-ico="resource/images/logo/logo.ico"
+    - name: 上传文件
+      uses: actions/upload-artifact@v4
+      with:
+        name: Groove-Windows
+        path: dist
