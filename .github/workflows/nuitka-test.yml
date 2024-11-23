@@ -19,7 +19,7 @@ jobs:
         pip install -r requirements.txt -U nuitka zstandard ordered-set
     - name: 编译
       run:
-        cd app && python -m nuitka --mingw64 --assume-yes-for-downloads --standalone --remove-output --windows-console-mode="disable" --jobs=8 --enable-plugins="pyqt5" --output-dir="dist" --main="Groove.py" --windows-icon-from-ico="resource/images/logo/logo.ico"
+        cd app && python -m nuitka --mingw64 --assume-yes-for-downloads --standalone --remove-output --windows-console-mode="disable" --jobs=8 --enable-plugins="pyqt5" --enable-plugins="numpy" --output-dir="dist" --main="Groove.py" --windows-icon-from-ico="resource/images/logo/logo.ico"
     - name: 上传文件
       uses: actions/upload-artifact@v4
       with:
