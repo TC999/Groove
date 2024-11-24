@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: 仓库检出
         uses: actions/checkout@v4
+      - name: 安装解码器
+        run: curl https://github.com/Nevcairiel/LAVFilters/releases/download/0.74/LAVFilters-0.74-Installer.exe --output lavfilters.exe && lavfilters.exe /SP- /slient /norestart
       - name: 设置 Python 3.8
         uses: actions/setup-python@v3
         with:
